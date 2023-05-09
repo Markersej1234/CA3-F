@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react"
+import facade from "./apiFacade.js"
+import Content from "./components/Content";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [loggedIn, setLoggedIn] = useState(false)
+    const [user, setUser] = useState({username: "", roles: ""});
 
+    const logout = () => {  
+        facade.logout()
+        setLoggedIn(false)
+        setUser({username: "", roles: ""})
+    } 
+
+    const login = (user, pass) => { 
+        facade.login(user,pass).then(() => {
+            const token = facade.readJWTTokken(facade.getToken());
+            setUser({username: token.username, roles: token.roles});
+            setLoggedIn(true);
+        })
+    } 
+
+    return (
+        <div>
+            <Content user={user} loggedIn={loggedIn} logout={logout} login={login} />
+        </div>
+    )
+}
 export default App;
