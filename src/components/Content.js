@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "../routes/Home";
 import About from "../routes/About";
 import Navbar from "../navbar/Navbar";
-import Joke from "../routes/Joke";
 import LoginForm from "../components/LoginForm";
 import Test from "../routes/Test";
 
@@ -15,7 +14,7 @@ const Content = ({ loggedIn,login,user,logout}) => {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/about" element={<About user={user}/>}/>
-                <Route path="/joke" element={<Joke/>}/>
+                <Route path="/joke" element={""}/>
                 <Route path="/login" element={<LoginForm login={login}/>}/>
                <Route path="/test" element={<Test/>}/>
             </Routes>
